@@ -21,7 +21,7 @@ const Header = () => {
                     </ul>
                 </div>
 
-                <div>
+                <div className='border rounded-full p-1 cursor-pointer hover:text-blue-950'>
                     <FaRegUser size={24} />
                 </div>
             </header>
