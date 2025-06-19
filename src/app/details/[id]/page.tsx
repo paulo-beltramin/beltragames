@@ -3,61 +3,87 @@ import { gamesApi } from "@/app/page"
 import Container from "@/components/container"
 import { GamesProps } from "@/interface"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { BsArrowRightSquare } from "react-icons/bs"
 
+const getDetails = async (id: number) => {
+    try {
+        const res = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${id}`)
+        return res.json()
+    } catch (error) {
+        throw new Error('failed to fetch data')
+    }
+}
 
-const Details = async () => {
+
+const Details = async ({ params: { id } }: { params: { id: number } }) => {
 
     const data: GamesProps = await gamesApi()
+
+
+    const detail: GamesProps = await getDetails(id)
+
+    if (!detail) {
+
+        return (
+            redirect('/')
+        )
+    }
     return (
         <>
             <section className="px-2 lg:px-0">
-                <img src='' alt='' />
+
+                <div className="bg-black">
+                    <img className="w-full h-80 object-cover opacity-75" src={detail.image_url} alt={detail.title} />
+                </div>
 
                 <Container>
                     <div>
-                        <h2 className="text-2xl font-bold mt-10 mb-10">titulo</h2>
+                        <h2 className="text-2xl font-bold mt-10 mb-10">{detail.title}</h2>
                         <p className="text-base mb-10">
-                            The Last of Us Part II é um jogo de ação e aventura pós-apocalíptico
-                            desenvolvido pela Naughty Dog. Nele, os jogadores controlam Ellie,
-                            uma jovem sobrevivente, em sua jornada para buscar vingança em um
-                            mundo devastado por uma pandemia. Com uma narrativa emocionante,
-                            personagens complexos e uma jogabilidade refinada,
-                            The Last of Us Part II é uma experiência emocionante e envolvente.
+                            {detail.description}
                         </p>
                     </div>
 
                     <h2 className="mb-2 font-bold">
                         Plataformas disponíveis:
                     </h2>
-                    <div className="flex gap-x-5 items-center">
-                        <div className="bg-slate-200 rounded-lg mb-10">
-                            <p className="px-5 py-1 font-bold">
-                                playstation
-                            </p>
-                        </div>
+                    <div >
+                        <ul className="mb-10 flex gap-5 flex-wrap">
+
+                            {detail.platforms.map(item => (
+                                <li className=" bg-slate-200 p-2">
+                                    {item}
+                                </li>
+                            ))}
+
+                        </ul>
                     </div>
-
-
 
                     <h2 className="mb-2 font-bold">
                         Categorias:
                     </h2>
-                    <div className="flex gap-x-5 items-center">
-                        <div className="bg-slate-200 rounded-lg mb-10">
-                            <p className="px-5 py-1 font-bold">
-                                Ação
-                            </p>
-                        </div>
-                    </div>
+                    <ul className="mb-10 flex gap-5 flex-wrap">
 
+                        {detail.categories.map(item => (
+                            <li className=" bg-slate-200 p-2">
+                                {item}
+                            </li>
+                        ))}
 
+                    </ul>
 
                     <div>
                         <p className="font-bold mb-10">
-                            Lançamento: 19/06/2020
+                            Lançamento: {detail.release}
                         </p>
                     </div>
+
+                </Container >
+
+
+                <Container>
+
                     <div>
 
                         <h2 className="text-2xl lg:text-3xl px-2 mb-7 font-bold">
@@ -67,7 +93,7 @@ const Details = async () => {
                             <Link href={`/details/${data.id}`} className='h-80'>
                                 <div className='absolute flex gap-2 p-2 items-center'>
                                     <p className='z-20 text-white text-2xl
-            pl-2'>{data.title}</p>
+               pl-2'>{data.title}</p>
                                     <BsArrowRightSquare size={24} color='white' />
 
                                 </div>
@@ -80,6 +106,7 @@ const Details = async () => {
 
                     </div>
                 </Container>
+
             </section>
         </>
     )

@@ -2,6 +2,9 @@ import Cards from '@/components/cards'
 import Container from '@/components/container'
 import Input from '@/components/search'
 import { GamesProps } from '@/interface'
+import { IoMdSad } from "react-icons/io";
+
+
 
 const getSearch = async (title: string) => {
   try {
@@ -16,19 +19,29 @@ const Search = async ({ params: { title } }: { params: { title: string } }) => {
 
   const data: GamesProps[] = await getSearch(title)
 
+
+
   return (
     <>
       <Container>
         <Input />
 
+        {!data && (
+          <div className='text-center w-full mt-10'>
+            <p className='text-3xl font-bold text-black '>
+              Item não encontrado ...
+            </p>
+            <p className='flex justify-center mt-5'>
+              <IoMdSad size={150} color='red' />
+
+            </p>
+          </div>
+        )}
+
         <div className='grid grid-cols-1 
           md:grid-cols-3 lg:grid-cols-4 gap-6 
           mt-10 mb-10 px-4 lg:px-0 '>
-          {!data && (
-            <p>
-              Item não encontrado ...
-            </p>
-          )}
+
 
           {data && data.map(item => (
             <Cards key={item.id} data={item} />
