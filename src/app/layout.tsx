@@ -1,6 +1,7 @@
 
 import { Metadata } from "next";
 import Header from "@/components/header";
+import { Roboto } from 'next/font/google'
 import "./globals.css";
 
 
@@ -9,6 +10,8 @@ export const metadata: Metadata = {
 
 };
 
+const roboto = Roboto({ subsets: ['latin'] })
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body >
+      <body className={roboto.className} >
         <Header />
         {children}
       </body>
