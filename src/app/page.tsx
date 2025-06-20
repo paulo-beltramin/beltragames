@@ -53,7 +53,7 @@ export default async function Home() {
             <img src={data.image_url} alt={data.title}
               className='w-full h-80  rounded-lg opacity-40 relative ' />
           </Link>
-        </section>F
+        </section>
    
         <div>
           <Input />
