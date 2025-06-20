@@ -2,25 +2,27 @@ import { Metadata } from 'next';
 import Link from 'next/link'
 import React from 'react'
 import Container from '@/components/container'
-
+import image from '@/components/images/image.png'
+import Favorites from '@/components/favorites';
 
 export const metadata: Metadata = {
-  title: "Meu perfil",
+    title: "Meu perfil",
 
 };
 
 const Profile = () => {
 
 
-    
+
     return (
         <>
-            <section>
+            <section className='relative'>
                 <Container>
-                    <div className='flex justify-between mt-10'>
-                        <div >
-                            <img src="" alt="" />
-                            <p className='font-bold text-lg'>
+                    <div className='flex flex-col lg:justify-between lg:flex-row justify-center items-center mt-10'>
+                        <div className='flex flex-col lg:flex lg:flex-row items-center gap-4'>
+                            <img src={image.src} alt=""
+                                className='w-56 object-cover h-56 rounded-full ' />
+                            <p className='font-bold text-2xl mb-7 text-center'>
                                 Paulo beltramin
                             </p>
                         </div>
@@ -37,38 +39,10 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <ul className='grid grid-cols-1 gap-5 mt-20 md:grid-cols-3 lg:grid-cols-3'>
-                            <li className='bg-slate-800 text-white h-48 '>
-                                <Link href={''} className='text-white font-bold flex p-2 text-3xl '>
-                                   +
-                                </Link>
-
-                                <Link href={''} className='flex items-start p-2 mt-24'>
-                                        Adicionar jogo  
-                                </Link>
-                            </li>
-
-                              <li className='bg-slate-800 text-white h-48 '>
-                                <Link href={''} className='text-white font-bold flex p-2 text-3xl '>
-                                   +
-                                </Link>
-
-                                <Link href={''} className='flex items-start p-2 mt-24'>
-                                        Adicionar jogo  
-                                </Link>
-                            </li>
-
-                              <li className='bg-slate-800 text-white h-48 '>
-                                <Link href={''} className='text-white font-bold flex p-2 text-3xl '>
-                                   +
-                                </Link>
-
-                                <Link href={''} className='flex items-start p-2 mt-24'>
-                                        Adicionar jogo  
-                                </Link>
-                            </li>
-                        </ul>
+                    <div className='p-2 mb-7 grid grid-cols-1 md:grid-cols-3 gap-5 mt-7'>
+                       <Favorites/>
+                       <Favorites/>
+                       <Favorites/>
                     </div>
                 </Container>
             </section>
