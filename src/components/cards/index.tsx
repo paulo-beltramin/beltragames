@@ -6,7 +6,9 @@ type gamesPropsCards = {
 }
 
 
-const Cards = ({ data }: gamesPropsCards) => {
+const Cards =  ({ data }: gamesPropsCards) => {
+
+
   return (
     <>
 

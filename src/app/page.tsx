@@ -1,3 +1,4 @@
+
 import { BsArrowRightSquare } from 'react-icons/bs'
 import Link from 'next/link'
 import Cards from '@/components/cards'
@@ -6,14 +7,6 @@ import Input from '@/components/search'
 import { GamesProps } from '@/interface'
 
 
-export const gamesApi = async () => {
-  try {
-    const response = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game_day`)
-    return response.json()
-  } catch (error) {
-    throw new Error('Erro na requisição')
-  }
-}
 
 const gamesCard = async () => {
   try {
@@ -25,9 +18,22 @@ const gamesCard = async () => {
 }
 
 
+async function apiGames ()  {
+  try {
+    const response = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game_day`)
+    return response.json()
+  } catch (error) {
+    throw new Error('Erro na requisição')
+  }
+}
+
+
+
+
 export default async function Home() {
 
-  const data: GamesProps = await gamesApi()
+
+  const data: GamesProps = await apiGames()
   const card: GamesProps[] = await gamesCard()
 
 
@@ -35,7 +41,7 @@ export default async function Home() {
     <div className="mt-10">
       <Container>
         <h1 className='text-2xl px-2 lg:text-3xl lg:px-0  font-bold text-center mb-10'>Separamos um jogo exclusivo pra você</h1>
-        <section className='bg-black w-full rounded-lg'>
+          <section className='bg-black w-full rounded-lg'>
           <Link href={`/details/${data.id}`} className='h-80'>
             <div className='absolute flex gap-2 p-2 items-center'>
               <p className='z-20 text-white text-2xl
@@ -47,8 +53,8 @@ export default async function Home() {
             <img src={data.image_url} alt={data.title}
               className='w-full h-80  rounded-lg opacity-40 relative ' />
           </Link>
-        </section>
-
+        </section>F
+   
         <div>
           <Input />
         </div>

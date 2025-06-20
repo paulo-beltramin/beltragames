@@ -11,20 +11,20 @@ export const metadata: Metadata = {
 
 };
 
-const getSearch = async (title: string) => {
+const getSearch = async (id: string) => {
   try {
-    const res = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&title=${title}`)
+    const res = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&title=${id}`)
     return res.json()
   } catch (error) {
     throw new Error('Erro ao buscar dados')
   }
 }
 
-const Search = async ({ params: { title } }: { params: { title: string } }) => {
+const Search = async ({ params }: { params: Promise<{ id: string }> }) => {
+   
+  const {id} = await params
 
-  const data: GamesProps[] = await getSearch(title)
-
-
+  const data: GamesProps[] = await getSearch(id)
 
   return (
     <>

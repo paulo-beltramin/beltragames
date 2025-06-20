@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { FaRegUser } from "react-icons/fa";
 
 const Header = () => {
     return (

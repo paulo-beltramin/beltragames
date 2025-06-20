@@ -1,32 +1,40 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Metadata } from "next"
-import { gamesApi } from "@/app/page"
-
 import Container from "@/components/container"
 import { GamesProps } from "@/interface"
 import { BsArrowRightSquare } from "react-icons/bs"
 
 
 export const metadata: Metadata = {
-  title: `Detalhes do jogo`,
+    title: `Detalhes do jogo`
 }
 
 const getDetails = async (id: string) => {
+
+    const res = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${id}`)
+    return res.json()
+
+}
+
+
+async function apiGames() {
     try {
-        const res = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${id}`)
-        return res.json()
+        const response = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game_day`)
+        return response.json()
     } catch (error) {
-        throw new Error('failed to fetch data')
+        throw new Error('Erro na requisição')
     }
 }
 
 
-const Details = async ({ params: { id } }: { params: { id: string } }) => {
 
-    const data: GamesProps = await gamesApi()
+const Details = async ({ params }: { params: Promise<{ id: string }> }) => {
+
+    const { id } = await params
 
 
+    const data: GamesProps = await apiGames()
     const detail: GamesProps = await getDetails(id)
 
     if (!detail) {
@@ -108,8 +116,6 @@ const Details = async ({ params: { id } }: { params: { id: string } }) => {
                                     className='w-full h-80  rounded-lg opacity-40 relative ' />
                             </Link>
                         </section>
-
-
                     </div>
                 </Container>
 
@@ -118,4 +124,8 @@ const Details = async ({ params: { id } }: { params: { id: string } }) => {
     )
 }
 
-export default Details
+export default Details;
+
+function gamesApi(): GamesProps | PromiseLike<GamesProps> {
+    throw new Error("Function not implemented.")
+}
