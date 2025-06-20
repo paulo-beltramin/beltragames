@@ -7,43 +7,12 @@ import Container from "@/components/container"
 import { GamesProps } from "@/interface"
 import { BsArrowRightSquare } from "react-icons/bs"
 
-type PropsParams = {
-    params: {
-        id: string
-    }
-}
-
-export const getMetaData = async ({ params }: PropsParams): Promise<Metadata> => {
-
-    try {
-        const response:GamesProps= await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${params.id}`)
-            .then((res) => res.json())
-            .catch(() => {
-                return {
-                    title: 'BeltraGames'
-                }
-            })
-
-        return {
-            title: response.title
-        }
-
-
-    } catch (error) {
-        return {
-            title: 'BeltraGames'
-        }
-    }
-
-
-}
-
 
 export const metadata: Metadata = {
   title: `Detalhes do jogo`,
-};
+}
 
-const getDetails = async (id: number) => {
+const getDetails = async (id: string) => {
     try {
         const res = await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${id}`)
         return res.json()
@@ -53,7 +22,7 @@ const getDetails = async (id: number) => {
 }
 
 
-const Details = async ({ params: { id } }: { params: { id: number } }) => {
+const Details = async ({ params: { id } }: { params: { id: string } }) => {
 
     const data: GamesProps = await gamesApi()
 
