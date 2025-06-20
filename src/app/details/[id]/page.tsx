@@ -1,10 +1,42 @@
+import Link from "next/link"
+import { redirect } from "next/navigation"
+import { Metadata } from "next"
 import { gamesApi } from "@/app/page"
 
 import Container from "@/components/container"
 import { GamesProps } from "@/interface"
-import Link from "next/link"
-import { redirect } from "next/navigation"
 import { BsArrowRightSquare } from "react-icons/bs"
+
+type PropsParams = {
+    params: {
+        id: number
+    }
+}
+
+export const getMetaData = async ({ params }: PropsParams): Promise<Metadata> => {
+
+    try {
+        const response:GamesProps= await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${params}`)
+            .then((res) => res.json())
+            .catch(() => {
+                return {
+                    title: 'BeltraGames'
+                }
+            })
+
+        return {
+            title: response.title
+        }
+
+
+    } catch (error) {
+        return {
+            title: 'BeltraGames'
+        }
+    }
+
+
+}
 
 const getDetails = async (id: number) => {
     try {
