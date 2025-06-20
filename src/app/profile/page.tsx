@@ -1,6 +1,13 @@
-import Container from '@/components/container'
+import { Metadata } from 'next';
 import Link from 'next/link'
 import React from 'react'
+import Container from '@/components/container'
+
+
+export const metadata: Metadata = {
+  title: "Meu perfil",
+
+};
 
 const Profile = () => {
 

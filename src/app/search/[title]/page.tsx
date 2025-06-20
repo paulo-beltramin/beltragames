@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Cards from '@/components/cards'
 import Container from '@/components/container'
 import Input from '@/components/search'
@@ -5,6 +6,10 @@ import { GamesProps } from '@/interface'
 import { IoMdSad } from "react-icons/io";
 
 
+export const metadata: Metadata = {
+  title: "Item encontrado",
+
+};
 
 const getSearch = async (title: string) => {
   try {

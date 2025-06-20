@@ -1,9 +1,9 @@
+import { BsArrowRightSquare } from 'react-icons/bs'
 import Link from 'next/link'
 import Cards from '@/components/cards'
 import Container from '@/components/container'
 import Input from '@/components/search'
 import { GamesProps } from '@/interface'
-import { BsArrowRightSquare } from 'react-icons/bs'
 
 
 export const gamesApi = async () => {

@@ -9,14 +9,14 @@ import { BsArrowRightSquare } from "react-icons/bs"
 
 type PropsParams = {
     params: {
-        id: number
+        id: string
     }
 }
 
 export const getMetaData = async ({ params }: PropsParams): Promise<Metadata> => {
 
     try {
-        const response:GamesProps= await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${params}`)
+        const response:GamesProps= await fetch(`${process.env.GAMES_URL_API}/next-api/?api=game&id=${params.id}`)
             .then((res) => res.json())
             .catch(() => {
                 return {
@@ -37,6 +37,11 @@ export const getMetaData = async ({ params }: PropsParams): Promise<Metadata> =>
 
 
 }
+
+
+export const metadata: Metadata = {
+  title: `Detalhes do jogo`,
+};
 
 const getDetails = async (id: number) => {
     try {

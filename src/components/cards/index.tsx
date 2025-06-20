@@ -1,5 +1,5 @@
-import { GamesProps } from "@/interface"
 import Link from "next/link"
+import { GamesProps } from "@/interface"
 
 type gamesPropsCards = {
   data: GamesProps

@@ -1,7 +1,7 @@
-
-import { Metadata } from "next";
-import Header from "@/components/header";
 import { Roboto } from 'next/font/google'
+import { Metadata } from "next";
+
+import Header from "@/components/header";
 import "./globals.css";
 
 
